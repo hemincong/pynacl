@@ -52,9 +52,4 @@ def crypto_scalarmult(n, p):
         raise CryptoError(
             "An error occurred while computing the scalar product")
 
-<<<<<<< HEAD
-    return lib.ffi.buffer(q, crypto_scalarmult_SCALARBYTES)[:]
-=======
     return lib.ffi.buffer(q, crypto_scalarmult_BYTES)[:]
-
->>>>>>> mumu/master
