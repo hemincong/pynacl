@@ -71,6 +71,7 @@ class PrivateKey(encoding.Encodable, StringFixer, object):
             raise ValueError(
                 "The secret key must be exactly %d bytes long" % self.SIZE)
 
+        # XXX: Do not depend on this to calculate the public key, it's details of crypto_box_keypair and may different from crypto_scalarmult_base.
         raw_public_key = nacl.c.crypto_scalarmult_base(private_key)
 
         self._private_key = private_key
@@ -86,7 +87,11 @@ class PrivateKey(encoding.Encodable, StringFixer, object):
 
         :rtype: :class:`~nacl.public.PrivateKey`
         """
-        return cls(random(PrivateKey.SIZE), encoder=encoding.RawEncoder)
+        raw_private_key, raw_public_key = nacl.c.crypto_box_keypair()
+        private_key = cls(raw_private_key, encoder=encoding.RawEncoder)
+        private_key.public_key = PublicKey(raw_public_key, encoder=encoding.RawEncoder)
+        return private_key
+
 
 
 class Box(encoding.Encodable, StringFixer, object):
