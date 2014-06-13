@@ -35,4 +35,4 @@ def crypto_scalarmult_base(n):
         raise CryptoError(
             "An error occurred while computing the scalar product")
 
-    return lib.ffi.buffer(q, crypto_scalarmult_SCALARBYTES)[:]
+    return lib.ffi.buffer(q, crypto_scalarmult_BYTES)[:]
