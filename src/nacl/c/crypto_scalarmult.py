@@ -35,14 +35,15 @@ def crypto_scalarmult_base(n):
         raise CryptoError(
             "An error occurred while computing the scalar product")
 
-    return lib.ffi.buffer(q, crypto_scalarmult_SCALARBYTES)[:]
+    return lib.ffi.buffer(q, crypto_scalarmult_BYTES)[:]
 
 def crypto_scalarmult(n, p):
     """
-    Computes and returns the scalar product of a standard group element and an
-    integer ``n`` and interger  ``p``
+    Computes and returns the scalar product of an integer ``p`` and an
+    integer ``n``.
 
-	:param n: bytes p: bytes
+    :param n: bytes
+    :param p: bytes
     :rtype: bytes
     """
     q = lib.ffi.new("unsigned char[]", crypto_scalarmult_BYTES)
@@ -51,4 +52,9 @@ def crypto_scalarmult(n, p):
         raise CryptoError(
             "An error occurred while computing the scalar product")
 
+<<<<<<< HEAD
     return lib.ffi.buffer(q, crypto_scalarmult_SCALARBYTES)[:]
+=======
+    return lib.ffi.buffer(q, crypto_scalarmult_BYTES)[:]
+
+>>>>>>> mumu/master
