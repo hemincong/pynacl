@@ -32,18 +32,18 @@ class Scalarmult(object):
     def public_key(cls, pri):
         if len(pri) != cls.PRIVATE_KEY_SIZE:
             raise ValueError(
-                    "The secret key must be exactly %d bytes long" % self.PRIVATE_KEY_SIZE)
+                    "The secret key must be exactly %d bytes long" % cls.PRIVATE_KEY_SIZE)
         return nacl.c.crypto_scalarmult_base(pri)
 
     @classmethod
     def generate(cls, pri, pub):
         if len(pri) != cls.PRIVATE_KEY_SIZE:
             raise ValueError(
-                    "The secret key must be exactly %d bytes long" % self.PRIVATE_KEY_SIZE)
+                    "The secret key must be exactly %d bytes long" % cls.PRIVATE_KEY_SIZE)
 
         if len(pub) != cls.PUBLIC_KEY_SIZE:
             raise ValueError(
-                    "The public key must be exactly %d bytes long" % self.PUBLIC_KEY_SIZE)
+                    "The public key must be exactly %d bytes long" % cls.PUBLIC_KEY_SIZE)
 
         return nacl.c.crypto_scalarmult(pri, pub)
 
