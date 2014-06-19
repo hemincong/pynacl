@@ -17,8 +17,6 @@ def crypto_generichash(in_, key):
 	out = lib.ffi.new("unsigned char *", crypto_scalarmult_BYTES)
 	out_len = crypto_scalarmult_BYTES
 
-	ret = lib.crypto_generichash(out, out_len, in_, len(in_), key, key_len)
-	print ("ret: %d" % ret)
 	if lib.crypto_generichash(out, out_len, in_, len(in_), key, key_len) != 0:
 		raise CryptoError("An error occurred while crypto_generichash")
 
