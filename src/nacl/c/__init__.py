@@ -38,7 +38,7 @@ from nacl.c.crypto_sign import (
     crypto_sign, crypto_sign_open,
 )
 from nacl.c.randombytes import randombytes
-
+from nacl.c.crypto_generichash import crypto_generichash
 
 __all__ = [
     "crypto_box_SECRETKEYBYTES",
@@ -83,4 +83,6 @@ __all__ = [
     "crypto_sign_open",
 
     "randombytes",
+
+	"crypto_generichash"
 ]
