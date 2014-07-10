@@ -9,7 +9,7 @@ crypto_scalarmult_BYTES = lib.crypto_generichash_bytes()
 def crypto_generichash(in_, key):
 
 	if not in_ :
-		in_ = lib.ffi.new("unsigned char *", crypto_scalarmult_BYTES)
+		in_ = lib.ffi.new("unsigned char *", 1)
 		in_len = 0
 	else:
 		in_len = len(in_)
