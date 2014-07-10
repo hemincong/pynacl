@@ -26,7 +26,3 @@ class Generichash(object):
 	@classmethod
 	def crypto_generichash(cls, in_, key):
 		return nacl.c.crypto_generichash(in_, key)
-
-	@classmethod
-	def get_passcode(cls, shared_key):
-		return nacl.c.crypto_generichash(None, shared_key)
