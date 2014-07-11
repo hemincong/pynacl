@@ -88,7 +88,10 @@ __all__ = [
 
     "randombytes",
 
+	"crypto_generichash_BYTES",
 	"crypto_generichash",
 
+	"crypto_shorthash_KEYBYTES",
+	"crypto_shorthash_BYTES",
 	"crypto_shorthash"
 ]
