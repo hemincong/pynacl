@@ -22,12 +22,12 @@ crypto_shorthash_BYTES = lib.crypto_shorthash_bytes()
 def crypto_shorthash(in_, k):
 
 	if not in_ :
-		in_ = lib.ffi.new("unsigned char *", 1)
+		in_ = lib.ffi.new("unsigned char []", 1)
 		in_len = 0
 	else:
 		in_len = len(in_)
 
-	out = lib.ffi.new("unsigned char *", crypto_shorthash_BYTES)
+	out = lib.ffi.new("unsigned char []", crypto_shorthash_BYTES)
 
 	if lib.crypto_shorthash(out, in_, in_len, k) != 0:
 		raise CryptoError("An error occurred while crypto_shorthash")
