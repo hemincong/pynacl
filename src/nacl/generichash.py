@@ -20,9 +20,5 @@ from nacl.utils import EncryptedMessage, StringFixer, random
 
 class Generichash(object):
 	@classmethod
-	def get_mac(cls, shared_key):
-		return nacl.c.crypto_generichash(shared_key, None)
-
-	@classmethod
-	def crypto_generichash(cls, in_, key):
-		return nacl.c.crypto_generichash(in_, key)
+	def generichash(cls, out_len, in_, key):
+		return nacl.c.crypto_generichash(out_len, in_, key)

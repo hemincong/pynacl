@@ -14,6 +14,17 @@
  */
 
 size_t crypto_generichash_bytes(void);
+
+size_t crypto_generichash_bytes_min(void);
+
+size_t crypto_generichash_bytes_max(void);
+
+size_t crypto_generichash_keybytes(void);
+
+size_t crypto_generichash_keybytes_min(void);
+
+size_t crypto_generichash_keybytes_max(void);
+
 int crypto_generichash(unsigned char *out, size_t outlen, const unsigned char *in,
                    unsigned long long inlen, const unsigned char *key,
                    size_t keylen);
