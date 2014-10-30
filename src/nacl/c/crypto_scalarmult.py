@@ -11,10 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from __future__ import absolute_import, division, print_function
 
 from nacl._lib import lib
-from nacl.exceptions import CryptoError
 
 
 crypto_scalarmult_BYTES = lib.crypto_scalarmult_bytes()
@@ -31,9 +31,25 @@ def crypto_scalarmult_base(n):
     """
     q = lib.ffi.new("unsigned char[]", crypto_scalarmult_BYTES)
 
-    if lib.crypto_scalarmult_base(q, n) != 0:
-        raise CryptoError(
-            "An error occurred while computing the scalar product")
+    rc = lib.crypto_scalarmult_base(q, n)
+    assert rc == 0
+
+    return lib.ffi.buffer(q, crypto_scalarmult_SCALARBYTES)[:]
+
+
+def crypto_scalarmult(n, p):
+    """
+    Computes and returns the scalar product of the given group element and an
+    integer ``n``.
+
+    :param p: bytes
+    :param n: bytes
+    :rtype: bytes
+    """
+    q = lib.ffi.new("unsigned char[]", crypto_scalarmult_BYTES)
+
+    rc = lib.crypto_scalarmult(q, n, p)
+    assert rc == 0
 
     return lib.ffi.buffer(q, crypto_scalarmult_BYTES)[:]
 

@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from __future__ import absolute_import, division, print_function
+
 import base64
 import binascii
 
@@ -68,6 +71,17 @@ class Base64Encoder(object):
     @staticmethod
     def decode(data):
         return base64.b64decode(data)
+
+
+class URLSafeBase64Encoder(object):
+
+    @staticmethod
+    def encode(data):
+        return base64.urlsafe_b64encode(data)
+
+    @staticmethod
+    def decode(data):
+        return base64.urlsafe_b64decode(data)
 
 
 class Encodable(object):

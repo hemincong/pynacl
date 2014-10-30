@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from __future__ import absolute_import
-from __future__ import division
+
+from __future__ import absolute_import, division, print_function
 
 import six
 
@@ -20,10 +20,6 @@ import nacl.c
 
 
 class EncryptedMessage(six.binary_type):
-    """
-    A bytes subclass that holds a messaged that has been encrypted by a
-    :class:`SecretBox`.
-    """
 
     @classmethod
     def _from_parts(cls, nonce, ciphertext, combined):
@@ -34,16 +30,10 @@ class EncryptedMessage(six.binary_type):
 
     @property
     def nonce(self):
-        """
-        The nonce used during the encryption of the :class:`EncryptedMessage`.
-        """
         return self._nonce
 
     @property
     def ciphertext(self):
-        """
-        The ciphertext contained within the :class:`EncryptedMessage`.
-        """
         return self._ciphertext
 
 

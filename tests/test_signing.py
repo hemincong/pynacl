@@ -11,7 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from __future__ import division
+
+from __future__ import absolute_import, division, print_function
 
 import binascii
 import codecs
@@ -19,9 +20,9 @@ import os
 
 import pytest
 
-import nacl.signing
 import nacl.encoding
 import nacl.exceptions
+import nacl.signing
 
 
 def ed25519_known_answers():
@@ -46,9 +47,16 @@ def ed25519_known_answers():
 
 
 class TestSigningKey:
-
     def test_initialize_with_generate(self):
         nacl.signing.SigningKey.generate()
+
+    def test_wrong_length(self):
+        with pytest.raises(ValueError):
+            nacl.signing.SigningKey(b"")
+
+    def test_bytes(self):
+        k = nacl.signing.SigningKey(b"\x00" * nacl.c.crypto_sign_SEEDBYTES)
+        assert bytes(k) == b"\x00" * nacl.c.crypto_sign_SEEDBYTES
 
     @pytest.mark.parametrize("seed", [
         b"77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a",
@@ -79,6 +87,13 @@ class TestSigningKey:
 
 
 class TestVerifyKey:
+    def test_wrong_length(self):
+        with pytest.raises(ValueError):
+            nacl.signing.VerifyKey(b"")
+
+    def test_bytes(self):
+        k = nacl.signing.VerifyKey(b"\x00" * nacl.c.crypto_sign_PUBLICKEYBYTES)
+        assert bytes(k) == b"\x00" * nacl.c.crypto_sign_PUBLICKEYBYTES
 
     @pytest.mark.parametrize(
         ("public_key", "signed", "message", "signature"),

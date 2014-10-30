@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from __future__ import absolute_import
-from __future__ import division
+
+from __future__ import absolute_import, division, print_function
 
 __all__ = [
     "__title__", "__summary__", "__uri__", "__version__", "__author__",
@@ -24,7 +24,7 @@ __summary__ = ("Python binding to the Networking and Cryptography (NaCl) "
                "library")
 __uri__ = "https://github.com/pyca/pynacl/"
 
-__version__ = "0.2.3"
+__version__ = "0.3.0"
 
 __author__ = "Donald Stufft"
 __email__ = "donald@stufft.io"

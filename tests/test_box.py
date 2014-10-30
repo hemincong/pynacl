@@ -11,12 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from __future__ import absolute_import, division, print_function
+
 import binascii
+
 import pytest
 
 from nacl.encoding import HexEncoder
-from nacl.public import PrivateKey, PublicKey, Box
 from nacl.exceptions import CryptoError
+from nacl.public import Box, PrivateKey, PublicKey
 
 
 VECTORS = [
@@ -40,6 +44,10 @@ VECTORS = [
 ]
 
 
+def test_generate_private_key():
+    PrivateKey.generate()
+
+
 def test_box_creation():
     pk = PublicKey(
         b"ec2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
@@ -50,6 +58,33 @@ def test_box_creation():
         encoder=HexEncoder,
     )
     Box(pk, sk)
+
+
+def test_box_decode():
+    pk = PublicKey(
+        b"ec2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
+        encoder=HexEncoder,
+    )
+    sk = PrivateKey(
+        b"5c2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
+        encoder=HexEncoder,
+    )
+    b1 = Box(pk, sk)
+    b2 = Box.decode(b1._shared_key)
+    assert b1._shared_key == b2._shared_key
+
+
+def test_box_bytes():
+    pk = PublicKey(
+        b"ec2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
+        encoder=HexEncoder,
+    )
+    sk = PrivateKey(
+        b"5c2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
+        encoder=HexEncoder,
+    )
+    b = Box(pk, sk)
+    assert bytes(b) == b._shared_key
 
 
 @pytest.mark.parametrize(
@@ -142,3 +177,24 @@ def test_box_failed_decryption(
 
     with pytest.raises(CryptoError):
         box.decrypt(ciphertext, binascii.unhexlify(nonce), encoder=HexEncoder)
+
+
+def test_box_wrong_length():
+    with pytest.raises(ValueError):
+        PublicKey(b"")
+    with pytest.raises(ValueError):
+        PrivateKey(b"")
+
+    pk = PublicKey(
+        b"ec2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
+        encoder=HexEncoder,
+    )
+    sk = PrivateKey(
+        b"5c2bee2d5be613ca82e377c96a0bf2220d823ce980cdff6279473edc52862798",
+        encoder=HexEncoder,
+    )
+    b = Box(pk, sk)
+    with pytest.raises(ValueError):
+        b.encrypt(b"", b"")
+    with pytest.raises(ValueError):
+        b.decrypt(b"", b"")

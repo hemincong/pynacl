@@ -12,6 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from __future__ import absolute_import, division, print_function
+
 import functools
 import glob
 import os
@@ -211,10 +214,10 @@ setup(
     author_email=nacl.__email__,
 
     setup_requires=[
-        "cffi",
+        "cffi>=0.8",
     ],
     install_requires=[
-        "cffi",
+        "cffi>=0.8",
         "six",
     ],
     extras_require={
@@ -249,5 +252,6 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
     ]
 )
